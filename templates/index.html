@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %} 
+<form method="post">
+<label>
+    Name
+    <input type="text" name="name" required value="{{ form_data.name if form_data else '' }}">
+</label>
+
+<label>
+    Email
+    <input type="email" name="email" required value="{{ form_data.email if form_data else '' }}">
+</label>
+
+<label>
+    Password
+    <input type="password" name="password" required>
+</label>
+
+<label>
+    Confirm Password
+    <input type="password" name="confirm_password" required>
+</label>
+
+<label>
+    Bio
+    <textarea name="bio" minlength="20" rows="3">{{ form_data.bio if form_data else '' }}</textarea>
+</label>
+
+<label>
+    <input type="checkbox" name="agreement" value="agree" required>
+    I agree
+</label>
+
+<button type="submit">Submit</button>
+</form>
+
+{% if error %}
+<p class="error">{{error}}</p>
+{% endif %}
+{% if success %}
+<p class="success">Form submitted successfully</p>
+{% endif %}
+
+</body>
+</html>
