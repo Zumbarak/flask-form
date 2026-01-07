@@ -10,19 +10,20 @@ app.config['SECRET_KEY'] = 'SECRET!!!123'
 team = [{"name":"Hasan", "role":"CEO"}, {"name":"Yehya","role":"Janitor"}, {"name":"John","role":"Frontend Developer"}]
 
 def validate(form_data):
+    errors = []
     if not form_data['name']:
-        return "Name is required"
+        errors.append("Name is required")
     if '@' not in form_data['email']:
-        return "Invalid email"
+        errors.append("Invalid email")
     if len(form_data['password']) < 8:
-        return "Password must be at least 8 characters"
+        errors.append("Password must be at least 8 characters")
     if form_data['password'] != form_data['confirm_password']:
-        return "Passwords do not match"
+        errors.append("Passwords do not match")
     if form_data['bio'] and len(form_data['bio']) < 20:
-        return "Bio must be at least 20 characters long"
+        errors.append("Bio must be at least 20 characters long")
     if form_data['agreement'] != 'agree':
-        return "You must agree to the terms"
-    return None
+        errors.append("You must agree to the terms")
+    return errors
 
 @app.route('/', methods=["GET", "POST"])
 def home_page():
